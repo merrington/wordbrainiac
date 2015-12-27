@@ -11,8 +11,10 @@ defmodule Wordbrainiac.Board do
     row = (Map.size board) - 1
     cols = Map.size board[row]
     case col = rem(cols, board_size) do
-      0 when cols == board_size -> read_next(Map.put(board, row+1, Map.put(%{}, col, hd(letters))), board_size, tl(letters))
-      _ -> read_next(Map.put(board, row, Map.put(board[row], col, hd(letters))), board_size, tl(letters))
+      0 when cols == board_size ->
+        read_next(Map.put(board, row+1, Map.put(%{}, col, hd(letters))), board_size, tl(letters))
+      _ ->
+        read_next(Map.put(board, row, Map.put(board[row], col, hd(letters))), board_size, tl(letters))
     end
   end
 
