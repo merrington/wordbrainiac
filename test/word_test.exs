@@ -15,7 +15,7 @@ defmodule WordTest do
     }
 
     neighbours2 = Wordbrainiac.Word.find_neighbors(board2 , 0, 0)
-    assert neighbours = [{1,1}, {1,0}]
+    assert neighbours2 = [{1,1}, {1,0}]
   end
 
   test "build the moves map" do
@@ -36,6 +36,17 @@ defmodule WordTest do
     moveMap = Wordbrainiac.Word.build_moves(board)
 
     assert length(Wordbrainiac.Word.build_paths(moveMap, 4)) == 24
+  end
+
+  test "find path of letters for non-square board" do
+    board = %{
+      0 => %{ 0 => ?a },
+      1 => %{ 0 => ?t, 1 => ?e }
+    }
+
+    moveMap = Wordbrainiac.Word.build_moves(board)
+
+    assert length(Wordbrainiac.Word.build_paths(moveMap, 3)) == 6
   end
 
   test "build a list of strings" do
