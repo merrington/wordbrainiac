@@ -4,8 +4,6 @@ defmodule Wordbrainiac.Word do
     |> build_moves
     |> build_paths(length)
     |> build_words(board)
-    # 1. build all "length" strings
-    # 2. build a regex using
   end
 
   def build_moves(board) do
