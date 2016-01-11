@@ -1,13 +1,9 @@
 defmodule Wordbrainiac do
-  alias Wordbrainiac.Board
-  alias Wordbrainiac.Word
+  alias Wordbrainiac.{Board, Word, Dictionary}
 
-  def process(board_size, letters, word_lengths) do
+  def process(board_size, letters, word_lengths, dictionary_file \\ "wordlist.txt") do
     Board.setup(board_size, letters)
-    |> solve(word_lengths)
-  end
-
-  def solve(board, word_lengths) do
-    Enum.each(1..Map.size(word_lengths), &(Word.find(board, &1)))
+    |> Word.find(hd(word_lengths))
+    |> Dictionary.find_real_words(dictionary_file)
   end
 end
