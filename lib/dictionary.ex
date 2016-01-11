@@ -12,7 +12,7 @@ defmodule Wordbrainiac.Dictionary do
   end
 
   def check_words(dict_trie, word_list) do
-    Enum.filter(word_list, fn word ->
+    Enum.filter(word_list, fn %{:path => path, :word => word} ->
       if String.length(word) > 0 do
         case :trie.find(String.to_char_list(word), dict_trie) do
           {:ok, _} -> true

@@ -59,11 +59,11 @@ defmodule WordTest do
 
     words = Wordbrainiac.Word.build_words(paths, board)
 
-    #assert length(words) == 24
-    assert Enum.member?(words, "late")
+    assert length(words) == 24
+    assert Enum.member?(words, %{path: [{0, 0}, {0, 1}, {1, 0}, {1, 1}], word: "late"})
   end
 
   def dict_trie() do
-    Wordbrainiac.Dictionary.get_dict_trie("10k_words.txt")
+    Wordbrainiac.Dictionary.get_dict_trie("wordlist.txt")
   end
 end

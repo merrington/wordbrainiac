@@ -62,8 +62,11 @@ defmodule Wordbrainiac.Word do
 
   def build_words(paths, board) do
     Enum.map(paths, fn(path) ->
-      Enum.reverse(path)
-      |> Enum.map_join(&([board[elem(&1, 0)][elem(&1,1)]]))
+      path = Enum.reverse(path)
+      %{
+        :path => path,
+        :word => Enum.map_join(path, &([board[elem(&1, 0)][elem(&1,1)]]))
+      }
     end)
   end
 

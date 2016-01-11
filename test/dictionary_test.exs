@@ -5,6 +5,6 @@ defmodule DictionaryTest do
     board = Wordbrainiac.Board.setup(2, 'late')
     words = Wordbrainiac.Word.find(board, 4)
 
-    Enum.map(Wordbrainiac.Dictionary.find_real_words(words, "10k_words.txt"), &(IO.puts &1))
+    assert Enum.member?(Enum.map(Wordbrainiac.Dictionary.find_real_words(words, "wordlist.txt"), &(&1[:word])), "late")
   end
 end
