@@ -2,7 +2,7 @@ defmodule DictionaryTest do
   use ExUnit.Case
 
   test "finding valid words" do
-    board = Wordbrainiac.Board.setup(2, 'late')
+    board = Wordbrainiac.Board.setup('late')
     words = Wordbrainiac.Word.find(board, 4)
     dictionary = Wordbrainiac.Dictionary.get_dict_trie("wordlist.txt")
 

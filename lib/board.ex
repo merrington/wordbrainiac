@@ -1,5 +1,6 @@
 defmodule Wordbrainiac.Board do
-  def setup(board_size, letters) do
+  def setup(letters) do
+    board_size = trunc(:math.sqrt(length letters))
     read_next(%{ 0 => %{}}, board_size, letters)
   end
 
@@ -18,16 +19,28 @@ defmodule Wordbrainiac.Board do
     end
   end
 
-  def remove_path(board, path) when length(path) == 0 do
+  def remove_path(board, path) do
+    path = Enum.sort(path, fn({row1, col1}, {row2, col2}) ->
+      cond do
+        col1 < col2 -> false
+        col1 == col2 ->
+          row1 < row2
+        col1 > col2 -> true
+      end
+    end)
+
+    _remove_path(board, path)
+  end
+
+  def _remove_path(board, path) when length(path) == 0 do
     board
   end
 
-  def remove_path(board, [{x, y} | path]) do
-    Enum.reduce(y..0, board, fn(y, board) ->
-      update_in(board, [x, y], fn(_) -> get_in(board, [x, y-1]) end)
-      |> update_in([x], fn(row) -> Map.delete(row, 0) end)
+  def _remove_path(board, [{row, col} | path]) do
+    Enum.reduce(row..0, board, fn(row, board) ->
+      update_in(board, [row, col], fn(_) -> get_in(board, [row-1, col]) end)
     end)
-    |> remove_path(path)
+    |> _remove_path(path)
   end
 
 end

@@ -9,11 +9,15 @@ defmodule Wordbrainiac.Word do
   def build_moves(board) do
     Enum.reduce(board, Map.new, fn {rowNum, row}, map ->
       Enum.reduce(row, map, fn {colNum, _cell}, map ->
-        case Map.has_key?(map, rowNum) do
-          true ->
-            Map.put(map, rowNum, Map.put(map[rowNum], colNum, find_neighbors(board, rowNum, colNum)))
-          false ->
-            Map.put(map, rowNum, Map.put(Map.new, colNum, find_neighbors(board, rowNum, colNum)))
+        if valid_tile(board, rowNum, colNum) do
+          case Map.has_key?(map, rowNum) do
+            true ->
+              Map.put(map, rowNum, Map.put(map[rowNum], colNum, find_neighbors(board, rowNum, colNum)))
+            false ->
+              Map.put(map, rowNum, Map.put(Map.new, colNum, find_neighbors(board, rowNum, colNum)))
+          end
+        else
+          map
         end
       end)
     end)
@@ -30,7 +34,7 @@ defmodule Wordbrainiac.Word do
     end)
   end
 
-  defp valid_tile(board, row, col), do: Map.has_key?(board, row) and Map.has_key?(board[row], col)
+  defp valid_tile(board, row, col), do: get_in(board, [row, col]) != nil
 
   def build_paths(moveMap, length) do
     Enum.reduce(moveMap, [], fn {rowNum, row}, paths ->

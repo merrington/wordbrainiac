@@ -2,7 +2,7 @@ defmodule WordTest do
   use ExUnit.Case
 
   test "find neighbours" do
-    board = Wordbrainiac.Board.setup(2, 'late')
+    board = Wordbrainiac.Board.setup('late')
     neighbours = Wordbrainiac.Word.find_neighbors(board, 0, 0)
 
     assert length(neighbours) == 3
@@ -18,7 +18,7 @@ defmodule WordTest do
   end
 
   test "build the moves map" do
-    board = Wordbrainiac.Board.setup(2, 'late')
+    board = Wordbrainiac.Board.setup('late')
     moves = Wordbrainiac.Word.build_moves(board)
 
     assert Map.size(moves) == 2
@@ -39,7 +39,7 @@ defmodule WordTest do
 
   test "find path of letters for non-square board" do
     board = %{
-      0 => %{ 0 => ?a },
+      0 => %{ 0 => nil, 1 => ?a },
       1 => %{ 0 => ?t, 1 => ?e }
     }
 
