@@ -9,4 +9,12 @@ defmodule BoardTest do
        2 => %{ 0 => ?g, 1 => ?h, 2 => ?i},
      }
   end
+
+  test "deleting a path" do
+    board = Wordbrainiac.Board.setup(2, 'late')
+    path = [{1,1}]
+
+    new_board = Wordbrainiac.Board.remove_path(board, path)
+    assert Map.has_key?(new_board[1], [0]) == false
+  end
 end

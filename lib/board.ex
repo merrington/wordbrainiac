@@ -18,4 +18,16 @@ defmodule Wordbrainiac.Board do
     end
   end
 
+  def remove_path(board, path) when length(path) == 0 do
+    board
+  end
+
+  def remove_path(board, [{x, y} | path]) do
+    Enum.reduce(y..0, board, fn(y, board) ->
+      update_in(board, [x, y], fn(_) -> get_in(board, [x, y-1]) end)
+      |> update_in([x], fn(row) -> Map.delete(row, 0) end)
+    end)
+    |> remove_path(path)
+  end
+
 end
