@@ -1,7 +1,8 @@
 defmodule Wordbrainiac.Dictionary do
   def find_real_words(word_list, dictionary) do
-      get_dict_trie(dictionary)
-      |> check_words(word_list)
+      #get_dict_trie(dictionary)
+      #|> check_words(dictionary, word_list)
+      check_words(dictionary, word_list)
   end
 
   def get_dict_trie(dictionary) do
