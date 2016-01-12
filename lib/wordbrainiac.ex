@@ -1,7 +1,7 @@
 defmodule Wordbrainiac do
   alias Wordbrainiac.{Board, Word, Dictionary}
 
-  def process(letters, word_lengths, dictionary_file \\ "words.txt") do
+  def process(letters, word_lengths, dictionary_file \\ "dicts/US.txt") do
     dictionary = Dictionary.get_dict_trie(dictionary_file)
     Board.setup(letters)
     |> find_next_word(word_lengths, dictionary, [])
